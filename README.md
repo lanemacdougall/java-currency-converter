@@ -2,3 +2,5 @@
 
 # java-currency-converter
 Real-time currency converter library for Java applications
+
+### Download JAR file and add to project dependencies
