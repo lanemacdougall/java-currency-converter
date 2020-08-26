@@ -1,6 +1,8 @@
 package com.lane_macdougall;
 
+import java.text.DecimalFormat;
 import java.util.Map;
+
 
 /* PURPOSE: Retrieve the supported exchange rates and then retrieve specific rates or convert money amounts
  *
@@ -41,8 +43,10 @@ public class CurrencyConverter {
     }
 
     // Convert an amount from a base currency to different currency using that currency's exchange rate
-    public Double calcExchangeAmount(Double baseAmount, Double rate) {
-        return baseAmount * rate;
+    public Double convertAmount(Double baseAmount, String to) {
+        Double convertedAmount = baseAmount * getExchangeRate(to);
+        DecimalFormat decimalFormat = new DecimalFormat("0.##");
+        return Double.parseDouble(decimalFormat.format(convertedAmount));
     }
 
 }
