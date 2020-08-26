@@ -17,22 +17,26 @@ import java.util.stream.Stream;
  */
 public class ApiRequestUtility {
 
-    public static String retrieveCurrencyInfo(String urlStr, boolean httpsProtocol) throws IOException {
+    public static String retrieveJSON(String urlStr, boolean httpsProtocol) throws IOException {
 
         // Use urlStr argument to instantiate a URL object
         URL url = new URL(urlStr);
 
         HttpURLConnection request;
         // If the URL is HTTPS, cast the URLConnection returned by openConnection() into an HttpsURLConnection object
-        if (httpsProtocol){ request = (HttpsURLConnection) url.openConnection(); }
+        if (httpsProtocol) {
+            request = (HttpsURLConnection) url.openConnection();
+        }
         // Otherwise, cast the URLConnection into an HttpURLConnection
-        else { request = (HttpURLConnection) url.openConnection(); }
+        else {
+            request = (HttpURLConnection) url.openConnection();
+        }
 
         request.setRequestMethod("GET");
         request.setRequestProperty("Accept", "application/json");
 
         // If request is not successful (response code 200, "OK"), print error and exit session
-        if (request.getResponseCode() != 200){
+        if (request.getResponseCode() != 200) {
             throw new CurrencyConverterException("Error: Response Code: " + request.getResponseCode());
         }
 

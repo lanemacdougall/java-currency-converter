@@ -9,8 +9,12 @@ public class ApiKey {
 
     private String exchangeRateAPIKey = null;
 
-    public void setExchangeRateAPIKey(String exchangeRateAPIKey){ this.exchangeRateAPIKey = exchangeRateAPIKey; }
+    public String getExchangeRateAPIKey() {
+        return this.exchangeRateAPIKey;
+    }
 
-    public String getExchangeRateAPIKey(){ return this.exchangeRateAPIKey; }
+    public void setExchangeRateAPIKey(String exchangeRateAPIKey) {
+        this.exchangeRateAPIKey = exchangeRateAPIKey;
+    }
 
 }

@@ -25,7 +25,7 @@ public class ExchangeRateApi {
      * allExchangeRates attribute.
      */
     public Map<String, Double> requestRates(String apiKey, String from) throws IOException {
-        String apiResponse = ApiRequestUtility.retrieveCurrencyInfo(formUrlString(apiKey, from), true);
+        String apiResponse = ApiRequestUtility.retrieveJSON(formUrlString(apiKey, from), true);
 
         /* Replace the "error-type" JSON key (if present) with the key "error_type" because "error-type" is an
          * invalid Java class attribute name and the JSON key name needs to match the name of the object that the JSON
@@ -39,7 +39,8 @@ public class ExchangeRateApi {
         ExchangeRateApiResponse response = objMapper.readValue(apiResponse, ExchangeRateApiResponse.class);
 
         // If the request was not successfully served, throw an exception according to the error type
-        if (!response.getResult().equals("success")) {
+        if (!response.getResult()
+                .equals("success")) {
             switch (response.getError_type()) {
                 case "unsupported-code":
                     throw new CurrencyConverterException("Unsupported currency code entered.");
@@ -68,7 +69,7 @@ public class ExchangeRateApi {
     }
 
     // Form the API server URL using the specified API key and base currency code
-    public String formUrlString(String apiKey, String from){
+    public String formUrlString(String apiKey, String from) {
         return "https://v6.exchangerate-api.com/v6/" + apiKey + "/latest/" + from;
     }
 

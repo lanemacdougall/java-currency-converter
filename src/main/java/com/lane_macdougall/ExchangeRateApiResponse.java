@@ -21,15 +21,21 @@ public class ExchangeRateApiResponse {
     private String base_code;
     private Map<String, Double> conversion_rates;
 
-    public String getResult() { return result; }
+    public String getResult() {
+        return result;
+    }
 
     public void setResult(String result) {
         this.result = result;
     }
 
-    public String getError_type() { return error_type; }
+    public String getError_type() {
+        return error_type;
+    }
 
-    public void setError_type(String error_type) { this.error_type = error_type; }
+    public void setError_type(String error_type) {
+        this.error_type = error_type;
+    }
 
     public String getDocumentation() {
         return documentation;
