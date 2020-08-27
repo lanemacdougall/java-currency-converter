@@ -5,8 +5,9 @@ import org.junit.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class TestCurrencyConverter {
-    // TODO: BE SURE TO SET EXCHANGE_RATE_API_KEY TO YOUR API ACCESS KEY
+    // TODO: BE SURE TO SET EXCHANGE_RATE_API_KEY TO YOUR API ACCESS KEY(s)
     private static final String EXCHANGE_RATE_API_KEY = "YOUR API ACCESS KEY";
+    private static final String CURRENCY_LAYER_API_KEY = "YOUR API ACCESS KEY";
     private static final String BASE_CURRENCY = "USD";
     private static final String EXCHANGE_CURRENCY = "JPY";
 
@@ -15,6 +16,7 @@ public class TestCurrencyConverter {
         CurrencyConverter converter = new CurrencyConverter(
                 new ApiKeyBuilder()
                         .setExchangeRateApiKey(EXCHANGE_RATE_API_KEY)
+                        .setCurrencyLayerApiKey(CURRENCY_LAYER_API_KEY)
                         .build(),
                 BASE_CURRENCY
         );
@@ -27,6 +29,7 @@ public class TestCurrencyConverter {
         CurrencyConverter converter = new CurrencyConverter(
                 new ApiKeyBuilder()
                         .setExchangeRateApiKey(EXCHANGE_RATE_API_KEY)
+                        .setCurrencyLayerApiKey(CURRENCY_LAYER_API_KEY)
                         .build(),
                 BASE_CURRENCY
         );

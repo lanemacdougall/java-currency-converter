@@ -13,17 +13,17 @@ import java.util.Map;
  * DEPENDENCY: fasterxml.jackson.databind.ObjectMapper.
  */
 public class ExchangeRateApi {
-    //private static String EXCHANGE_RATE_API_KEY;
 
     /* Methods */
 
     /* Method retrieves and parses the JSON object returned by the API using the ApiRequestUtility class'
      * retrieveCurrencyInfo() method, the Jackson (databind) ObjectMapper class, and the ExchangeRateApiResponse class.
      *
-     * Method saves a hash map containing currencies and their exchange rates to the ExchangeRateApi object's
-     * allExchangeRates attribute.
+     * Method returns a hash map containing currencies (keys) and their exchange rates (values)
      */
     public Map<String, Double> requestRates(String apiKey, String from) throws IOException {
+
+        // Retrieve response from API using the ApiRequestUtility class' retrieveJSON method
         String apiResponse = ApiRequestUtility.retrieveJSON(formUrlString(apiKey, from), true);
 
         /* Replace the "error-type" JSON key (if present) with the key "error_type" because "error-type" is an
@@ -40,6 +40,7 @@ public class ExchangeRateApi {
         // If the request was not successfully served, throw an exception according to the error type
         if (!response.getResult()
                 .equals("success")) {
+            // TODO: Optimize these exception throws
             switch (response.getError_type()) {
                 case "unsupported-code":
                     throw new CurrencyConverterException("Unsupported currency code entered.");
@@ -68,7 +69,7 @@ public class ExchangeRateApi {
     }
 
     // Form the API server URL using the specified API key and base currency code
-    private String formUrlString(String apiKey, String from) {
+    private static String formUrlString(String apiKey, String from) {
         return "https://v6.exchangerate-api.com/v6/" + apiKey + "/latest/" + from;
     }
 

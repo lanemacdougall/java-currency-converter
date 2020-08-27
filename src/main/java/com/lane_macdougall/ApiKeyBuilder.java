@@ -2,10 +2,8 @@ package com.lane_macdougall;
 
 /* PURPOSE: Builder object is used to configure an ApiKey object with the API key(s) provided by the implementation.
  *
- * Note: the implementation can use one or more of the supported APIs - i.e., the implementation can provide one or more
- * key.
+ * Note: the implementation can use one or more of the supported APIs - the implementation can provide one or more key.
  */
-// NOTE: This class will be much more important when additional APIs are supported by the library
 public class ApiKeyBuilder {
 
     private final ApiKey apiKey;
@@ -19,9 +17,14 @@ public class ApiKeyBuilder {
         return this;
     }
 
+    public ApiKeyBuilder setCurrencyLayerApiKey(String key) {
+        this.apiKey.setCurrencyLayerAPIKey(key);
+        return this;
+    }
+
     public ApiKey build() {
-        if (this.apiKey.getExchangeRateAPIKey() == null) {
-            throw new CurrencyConverterException("No API key provided.");
+        if (this.apiKey.getExchangeRateAPIKey() == null && this.apiKey.getCurrencyLayerAPIKey() == null) {
+            throw new CurrencyConverterException("No valid API key provided.");
         }
 
         return this.apiKey;

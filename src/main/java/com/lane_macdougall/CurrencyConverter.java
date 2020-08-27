@@ -20,7 +20,7 @@ public class CurrencyConverter {
     /* Constructor */
     public CurrencyConverter(ApiKey key, String baseCurr) {
         this.key = key;
-        this.baseCurr = baseCurr;
+        this.baseCurr = baseCurr.toUpperCase();
     }
 
     /* Methods */
@@ -39,7 +39,7 @@ public class CurrencyConverter {
         /* If the exchange rates have been retrieved successfully and the specified currency is supported,
          * return its exchange rate
          */
-        return ServiceCoordinator.retrieveRates(this.key, this.baseCurr, to);
+        return ServiceCoordinator.retrieveRates(this.key, this.baseCurr, to.toUpperCase());
     }
 
     // Convert an amount from a base currency to different currency using that currency's exchange rate
