@@ -4,7 +4,6 @@ package com.lane_macdougall;
 // GET https://v6.exchangerate-api.com/v6/YOUR-API-KEY/latest/BASE-CURRENCY
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import java.io.IOException;
 import java.util.Map;
 
@@ -14,7 +13,7 @@ import java.util.Map;
  * DEPENDENCY: fasterxml.jackson.databind.ObjectMapper.
  */
 public class ExchangeRateApi {
-    private static String EXCHANGE_RATE_API_KEY;
+    //private static String EXCHANGE_RATE_API_KEY;
 
     /* Methods */
 
@@ -69,7 +68,7 @@ public class ExchangeRateApi {
     }
 
     // Form the API server URL using the specified API key and base currency code
-    public String formUrlString(String apiKey, String from) {
+    private String formUrlString(String apiKey, String from) {
         return "https://v6.exchangerate-api.com/v6/" + apiKey + "/latest/" + from;
     }
 
