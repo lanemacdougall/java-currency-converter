@@ -44,7 +44,6 @@ public class ExchangeRateApi {
         // If the request was not successfully served, throw an exception according to the error type
         if (!response.getResult()
                 .equals("success")) {
-            // TODO: Optimize these exception throws
             switch (response.getError_type()) {
                 case "unsupported-code":
                     throw new CurrencyConverterException("Unsupported currency code entered.");

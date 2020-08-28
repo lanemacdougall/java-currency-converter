@@ -19,6 +19,12 @@ import java.util.stream.Stream;
  */
 public class ApiRequestUtility {
 
+    public static int requestCount = 0;
+
+    public static int getRequestCount(){ return requestCount; }
+
+    public static void setRequestCount(int count){ requestCount = count; }
+
     public static String retrieveJSON(String urlStr, boolean httpsProtocol) throws IOException {
 
         // Use urlStr argument to instantiate a URL object
@@ -53,6 +59,8 @@ public class ApiRequestUtility {
 
         // Terminate request with server
         request.disconnect();
+
+        requestCount++;
 
         return response;
 

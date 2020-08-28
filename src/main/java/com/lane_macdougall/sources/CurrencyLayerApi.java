@@ -35,6 +35,9 @@ public class CurrencyLayerApi {
         // Convert JSON object String into an CurrencyLayerApiResponse object
         CurrencyLayerApiResponse response = objMapper.readValue(apiResponse, CurrencyLayerApiResponse.class);
 
+        /* If the request was not successful, throw a CurrencyConverterException with the error code and message in the
+         * server's response.
+         */
         if (!response.isSuccess()){
             int errorCode = (int) response.getError().get("code");
             String errorMsg = (String) response.getError().get("info");
