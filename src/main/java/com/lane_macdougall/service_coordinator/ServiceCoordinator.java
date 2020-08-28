@@ -1,4 +1,9 @@
-package com.lane_macdougall;
+package com.lane_macdougall.service_coordinator;
+
+import com.lane_macdougall.api_keys.ApiKey;
+import com.lane_macdougall.exception.CurrencyConverterException;
+import com.lane_macdougall.sources.CurrencyLayerApi;
+import com.lane_macdougall.sources.ExchangeRateApi;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,4 +1,6 @@
-package com.lane_macdougall;
+package com.lane_macdougall.utility;
+
+import com.lane_macdougall.exception.CurrencyConverterException;
 
 import javax.net.ssl.HttpsURLConnection;
 import java.io.BufferedReader;

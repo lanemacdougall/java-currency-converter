@@ -1,9 +1,13 @@
-package com.lane_macdougall;
+package com.lane_macdougall.sources;
 
 // For exchange rates between base currency and all supported currencies:
 // GET https://api.currencylayer.com/live?access_key=[YOUR_ACCESS_KEY]&source=[FROM_CURRENCY]
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.lane_macdougall.responses.CurrencyLayerApiResponse;
+import com.lane_macdougall.exception.CurrencyConverterException;
+import com.lane_macdougall.utility.ApiRequestUtility;
+
 import java.io.IOException;
 import java.util.Map;
 

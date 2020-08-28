@@ -1,4 +1,6 @@
-package com.lane_macdougall;
+package com.lane_macdougall.api_keys;
+
+import com.lane_macdougall.exception.CurrencyConverterException;
 
 /* PURPOSE: Builder object is used to configure an ApiKey object with the API key(s) provided by the implementation.
  *

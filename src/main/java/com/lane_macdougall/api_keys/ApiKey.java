@@ -1,4 +1,4 @@
-package com.lane_macdougall;
+package com.lane_macdougall.api_keys;
 
 /* PURPOSE: Object is used to contain the keys of the supported APIs.
  *

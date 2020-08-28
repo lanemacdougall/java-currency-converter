@@ -1,4 +1,4 @@
-package com.lane_macdougall;
+package com.lane_macdougall.responses;
 
 import java.util.Map;
 

@@ -1,5 +1,6 @@
 package com.lane_macdougall;
 
+import com.lane_macdougall.api_keys.ApiKeyBuilder;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
