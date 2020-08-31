@@ -5,7 +5,6 @@ import com.lane_macdougall.service_coordinator.ServiceCoordinator;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
-import java.util.Map;
 
 
 /* PURPOSE: Retrieve the supported exchange rates and then retrieve specific rates or convert money amounts
@@ -15,40 +14,24 @@ public class CurrencyConverter {
 
     private final ApiKey key;
 
-    // ISO 4217 three-letter code of base currency
-    private String baseCurr;
-
-    private Map<String, Double> allExchangeRates;
-
-
     /* Constructor */
-    public CurrencyConverter(ApiKey key, String baseCurr) {
+    public CurrencyConverter(ApiKey key) {
         this.key = key;
-        this.baseCurr = baseCurr.toUpperCase();
     }
 
     /* Methods */
 
-    public String getBaseCurr() {
-        return baseCurr;
-    }
-
-    // Provide base currency's ISO 4217 three-letter code
-    public void setBaseCurr(String baseCurr) {
-        this.baseCurr = baseCurr;
-    }
-
-    // Retrieve a specific exchange rate (using currency's ISO 4217 three-letter code)
-    public Double getExchangeRate(String to) throws IOException {
+    // Retrieve a specific exchange rate (using (base and conversion) currencies' ISO 4217 three-letter code)
+    public Double getExchangeRate(String from, String to) throws IOException {
         /* If the exchange rates have been retrieved successfully and the specified currency is supported,
          * return its exchange rate
          */
-        return ServiceCoordinator.retrieveRates(this.key, this.baseCurr, to.toUpperCase());
+        return ServiceCoordinator.retrieveRates(this.key, from, to.toUpperCase());
     }
 
-    // Convert an amount from a base currency to different currency using that currency's exchange rate
-    public Double convertAmount(Double baseAmount, String to) throws IOException {
-        Double convertedAmount = baseAmount * getExchangeRate(to);
+    // Convert an amount from a base currency to different currency using those currencies' exchange rate
+    public Double convertAmount(Double baseAmount, String from, String to) throws IOException {
+        Double convertedAmount = baseAmount * getExchangeRate(from, to);
         DecimalFormat decimalFormat = new DecimalFormat("0.##");
         return Double.parseDouble(decimalFormat.format(convertedAmount));
     }

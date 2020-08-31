@@ -26,12 +26,11 @@ public class TestCurrencyConverter {
                 new ApiKeyBuilder()
                         .setExchangeRateApiKey(EXCHANGE_RATE_API_KEY)
                         .setCurrencyLayerApiKey(CURRENCY_LAYER_API_KEY)
-                        .build(),
-                BASE_CURRENCY
+                        .build()
         );
         ApiRequestUtility.setRequestCount(0);
-        converter.getExchangeRate(EXCHANGE_CURRENCY);
-        converter.getExchangeRate(EXCHANGE_CURRENCY_TWO);
+        converter.getExchangeRate(BASE_CURRENCY, EXCHANGE_CURRENCY);
+        converter.getExchangeRate(BASE_CURRENCY, EXCHANGE_CURRENCY_TWO);
         assertThat(ApiRequestUtility.getRequestCount()).isEqualTo(1);
 
     }
@@ -48,10 +47,9 @@ public class TestCurrencyConverter {
                 new ApiKeyBuilder()
                         .setExchangeRateApiKey(EXCHANGE_RATE_API_KEY)
                         .setCurrencyLayerApiKey(CURRENCY_LAYER_API_KEY)
-                        .build(),
-                BASE_CURRENCY
+                        .build()
         );
-        Double rate = converter.getExchangeRate(EXCHANGE_CURRENCY);
+        Double rate = converter.getExchangeRate(BASE_CURRENCY, EXCHANGE_CURRENCY);
         assertThat(rate).isGreaterThan(0);
     }
 
@@ -68,12 +66,11 @@ public class TestCurrencyConverter {
                 new ApiKeyBuilder()
                         .setExchangeRateApiKey(EXCHANGE_RATE_API_KEY)
                         .setCurrencyLayerApiKey(CURRENCY_LAYER_API_KEY)
-                        .build(),
-                BASE_CURRENCY
+                        .build()
         );
 
         double baseAmount = 10;
-        Double amount = converter.convertAmount(baseAmount, EXCHANGE_CURRENCY);
+        Double amount = converter.convertAmount(baseAmount, BASE_CURRENCY, EXCHANGE_CURRENCY);
         assertThat(amount).isGreaterThan(baseAmount);
     }
 
