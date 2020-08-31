@@ -45,6 +45,8 @@ public class ApiRequestUtility {
 
         // If request is not successful (response code 200, "OK"), print error and exit session
         if (request.getResponseCode() != 200) {
+            // TODO: If appropriate, try using other API
+            // NOTE: Difficulty with the above is that both service classes use this class
             throw new CurrencyConverterException("Error: Response Code: " + request.getResponseCode());
         }
 

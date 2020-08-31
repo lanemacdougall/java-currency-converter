@@ -4,12 +4,11 @@ package com.lane_macdougall.sources;
 // GET https://v6.exchangerate-api.com/v6/YOUR-API-KEY/latest/BASE-CURRENCY
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.lane_macdougall.exception.CurrencyConverterException;
+import com.lane_macdougall.api_keys.ApiKey;
 import com.lane_macdougall.responses.ExchangeRateApiResponse;
 import com.lane_macdougall.utility.ApiRequestUtility;
 
 import java.io.IOException;
-import java.util.Map;
 
 
 /* PURPOSE: Used to retrieve the exchange rates for a given base currency using the Exchange Rate API.
@@ -25,10 +24,10 @@ public class ExchangeRateApi {
      *
      * Method returns a hash map containing currencies (keys) and their exchange rates (values)
      */
-    public Map<String, Double> requestRates(String apiKey, String from) throws IOException {
+    public ExchangeRateApiResponse requestRates(ApiKey apiKey, String from) throws IOException {
 
         // Retrieve response from API using the ApiRequestUtility class' retrieveJSON method
-        String apiResponse = ApiRequestUtility.retrieveJSON(formUrlString(apiKey, from), true);
+        String apiResponse = ApiRequestUtility.retrieveJSON(formUrlString(apiKey.getExchangeRateAPIKey(), from), true);
 
         /* Replace the "error-type" JSON key (if present) with the key "error_type" because "error-type" is an
          * invalid Java class attribute name and the JSON key name needs to match the name of the object that the JSON
@@ -41,34 +40,7 @@ public class ExchangeRateApi {
         // Convert JSON object String into an ExchangeRateApiResponse object
         ExchangeRateApiResponse response = objMapper.readValue(apiResponse, ExchangeRateApiResponse.class);
 
-        // If the request was not successfully served, throw an exception according to the error type
-        if (!response.getResult()
-                .equals("success")) {
-            switch (response.getError_type()) {
-                case "unsupported-code":
-                    throw new CurrencyConverterException("Unsupported currency code entered.");
-                case "base-code-only-on-pro":
-                    throw new CurrencyConverterException("You have submitted a base code other than USD or EUR.");
-                case "malformed-request":
-                    throw new CurrencyConverterException("Request is not properly formatted.");
-                case "invalid-key":
-                    throw new CurrencyConverterException("Invalid API key.");
-                case "quota-reached":
-                    throw new CurrencyConverterException("Request quota exceeded.");
-                case "not-available-on-plan":
-                    throw new CurrencyConverterException("Your plan level doesn't support this type of request or endpoint.");
-                default:
-                    throw new CurrencyConverterException("An unknown error occurred.");
-            }
-        }
-
-        // If the response's base code does not match the specified base code, throw an exception
-        String baseCurr = response.getBase_code();
-        if (!from.equals(baseCurr)) {
-            throw new CurrencyConverterException("Incorrect currency retrieved.");
-        }
-
-        return response.getConversion_rates();
+        return response;
     }
 
     // Form the API server URL using the specified API key and base currency code

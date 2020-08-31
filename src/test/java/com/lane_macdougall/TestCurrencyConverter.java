@@ -4,12 +4,14 @@ import com.lane_macdougall.api_keys.ApiKeyBuilder;
 import com.lane_macdougall.utility.ApiRequestUtility;
 import org.junit.Test;
 
+import java.io.IOException;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class TestCurrencyConverter {
     // TODO: BE SURE TO SET EXCHANGE_RATE_API_KEY TO YOUR API ACCESS KEY(s)
-    private static final String EXCHANGE_RATE_API_KEY = "YOUR API ACCESS KEY";
-    private static final String CURRENCY_LAYER_API_KEY = "YOUR API ACCESS KEY";
+    private static final String EXCHANGE_RATE_API_KEY = null;
+    private static final String CURRENCY_LAYER_API_KEY = null;
     private static final String BASE_CURRENCY = "USD";
     private static final String EXCHANGE_CURRENCY = "JPY";
     private static final String EXCHANGE_CURRENCY_TWO = "GBP";
@@ -19,7 +21,7 @@ public class TestCurrencyConverter {
      * hash map.
      */
     @Test
-    public void singleRequestTest() {
+    public void singleRequestTest() throws IOException {
         CurrencyConverter converter = new CurrencyConverter(
                 new ApiKeyBuilder()
                         .setExchangeRateApiKey(EXCHANGE_RATE_API_KEY)
@@ -41,7 +43,7 @@ public class TestCurrencyConverter {
      * expected to be significantly greater than 0 (hence, the assertion of isGreaterThan(0)).
      */
     @Test
-    public void retrieveExchangeRateTest() {
+    public void retrieveExchangeRateTest() throws IOException {
         CurrencyConverter converter = new CurrencyConverter(
                 new ApiKeyBuilder()
                         .setExchangeRateApiKey(EXCHANGE_RATE_API_KEY)
@@ -61,7 +63,7 @@ public class TestCurrencyConverter {
      * (hence, the assertion of isGreaterThan(baseAmount)).
      */
     @Test
-    public void convertAmountTest() {
+    public void convertAmountTest() throws IOException {
         CurrencyConverter converter = new CurrencyConverter(
                 new ApiKeyBuilder()
                         .setExchangeRateApiKey(EXCHANGE_RATE_API_KEY)

@@ -3,6 +3,7 @@ package com.lane_macdougall;
 import com.lane_macdougall.api_keys.ApiKey;
 import com.lane_macdougall.service_coordinator.ServiceCoordinator;
 
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.Map;
 
@@ -38,7 +39,7 @@ public class CurrencyConverter {
     }
 
     // Retrieve a specific exchange rate (using currency's ISO 4217 three-letter code)
-    public Double getExchangeRate(String to) {
+    public Double getExchangeRate(String to) throws IOException {
         /* If the exchange rates have been retrieved successfully and the specified currency is supported,
          * return its exchange rate
          */
@@ -46,7 +47,7 @@ public class CurrencyConverter {
     }
 
     // Convert an amount from a base currency to different currency using that currency's exchange rate
-    public Double convertAmount(Double baseAmount, String to) {
+    public Double convertAmount(Double baseAmount, String to) throws IOException {
         Double convertedAmount = baseAmount * getExchangeRate(to);
         DecimalFormat decimalFormat = new DecimalFormat("0.##");
         return Double.parseDouble(decimalFormat.format(convertedAmount));
