@@ -87,9 +87,11 @@ public class ServiceCoordinator {
      * is contained in the response, retrieve the specified exchange rate.
      */
     private static void exchangeRateApiRequest(ApiKey key, String from, String to) throws IOException {
+        // Make sure the API access key has been provided in the CurrencyConverter object's constructor
         if (key.getExchangeRateAPIKey() != null) {
             ExchangeRateApi exchangeRateApi = new ExchangeRateApi();
 
+            // Send request to API
             ExchangeRateApiResponse response = exchangeRateApi.requestRates(key, from);
 
             if (response.getResult()
@@ -112,10 +114,16 @@ public class ServiceCoordinator {
         }
     }
 
+
+    /* PURPOSE: Method sends a request to currencylayer API and, if the request is successful and the desired rate
+     * is contained in the response, retrieve the specified exchange rate.
+     */
     private static void currencyLayerApiRequest(ApiKey key, String from, String to) throws IOException {
+        // Make sure the API access key has been provided in the CurrencyConverter object's constructor
         if (key.getCurrencyLayerAPIKey() != null) {
             CurrencyLayerApi currencyLayerApi = new CurrencyLayerApi();
 
+            // Send request to API
             CurrencyLayerApiResponse response = currencyLayerApi.requestRates(key, from);
 
             if (response.isSuccess()) {
@@ -138,6 +146,14 @@ public class ServiceCoordinator {
     }
 
 
+    /* PURPOSE: Method logs any API server-side errors encountered in attempting to retrieve exchange rates from the
+     * API. This approach was taken, as opposed to throwing CurrencyConverterExceptions, because if an error is
+     * encountered while sending a request to one API, the system will try again with the remaining APIs utilized by
+     * the library.
+     */
+    /* NOTE: I am not confident in the practicality of this approach. Please feel free to send a message with
+     *  suggestions for improvement or to submit a pull request.
+     */
     private static void handleExchangeRateApiError(ExchangeRateApiResponse response){
         log.setLevel(Level.INFO);
         // If the request was not successfully served, log the error
@@ -165,6 +181,12 @@ public class ServiceCoordinator {
         }
     }
 
+
+    /* PURPOSE: Method logs any API server-side errors encountered in attempting to retrieve exchange rates from the
+     * API. This approach was taken, as opposed to throwing CurrencyConverterExceptions, because if an error is
+     * encountered while sending a request to one API, the system will try again with the remaining APIs utilized by
+     * the library.
+     */
     private static void handleCurrencyLayerApiError(CurrencyLayerApiResponse response){
         log.setLevel(Level.INFO);
         /* If the request was not successful, log the error code and message from the
