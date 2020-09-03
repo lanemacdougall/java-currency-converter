@@ -39,7 +39,7 @@ public class CurrencyConverter {
      *
      * RETURNS: Amount in base currency converted to amount in conversion currency.
      */
-    public Double convertAmount(Double baseAmount, String from, String to) throws IOException {
+    public Double convertAmount(double baseAmount, String from, String to) throws IOException {
         Double convertedAmount = baseAmount * getExchangeRate(from, to);
 
         // Format currency to two decimal places
