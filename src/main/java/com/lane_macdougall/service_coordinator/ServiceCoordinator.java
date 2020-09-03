@@ -26,7 +26,8 @@ public class ServiceCoordinator {
     // Boolean value indicating whether or not exchange rates were retrieved successfully
     private static boolean successfulRetrieval = false;
 
-    private static String retrieveCode;
+    // Value that indicates which of the APIs a previously successful retrieval was carried-out through
+    private static int source = -1;
 
     // Once exchange rates have been requested and retrieved, the hash map is stored in the exchangeRates param
     private static Map<String, Double> exchangeRates = new HashMap<>();
@@ -35,6 +36,10 @@ public class ServiceCoordinator {
     private static Double exchangeRate;
 
 
+    /* PURPOSE: Method sends requests for exchange rates to supported APIs.
+     *
+     * RETURNS: Exchange rate between the specified base currency and conversion currency.
+     */
     public static Double retrieveRates(ApiKey key, String baseCurr, String to) throws IOException {
         /* If the exchange rates have already been requested and retrieved, do not send another request;
          * retrieve the value (if available) from the existing hash map.
@@ -42,10 +47,22 @@ public class ServiceCoordinator {
          * Else, request and retrieve the exchange rates from the first API source for which the access key
          * is supplied.
          */
-        if (successfulRetrieval && exchangeRates != null && exchangeRates.containsKey(retrieveCode)) {
-            exchangeRate = exchangeRates.get(retrieveCode);
+        if (successfulRetrieval && (exchangeRates.containsKey(to) || exchangeRates.containsKey(baseCurr+to))){
+            /* Currency codes in Exchange Rate API responses are just the conversion currencies' ISO 4217 three-letter codes, while
+             * the currency codes in currencylayer API responses are the ISO 4217 three-letter codes of both the base currency
+             * and the conversion currency concatenated. Separating the exchange rate retrieval from a saved hash map is
+             * necessary for this reason.
+             */
+            if (source == 0){
+                exchangeRate = exchangeRates.get(to);
+            } else if (source == 1){
+                exchangeRate = exchangeRates.get(baseCurr+to);
+            }
         } else {
             int i = 0;
+            /* While there are API sources that have not been tried and there has not been a successful retrieval,
+             * send a request to the next supported API.
+             */
             while (i <= NUM_API & !successfulRetrieval){
                 switch (i){
                     case 0:
@@ -61,13 +78,14 @@ public class ServiceCoordinator {
             }
         }
 
-
         // Return the specified rate
         return exchangeRate;
-
     }
 
 
+    /* PURPOSE: Method sends a request to Exchange Rate API and, if the request is successful and the desired rate
+     * is contained in the response, retrieve the specified exchange rate.
+     */
     private static void exchangeRateApiRequest(ApiKey key, String from, String to) throws IOException {
         if (key.getExchangeRateAPIKey() != null) {
             ExchangeRateApi exchangeRateApi = new ExchangeRateApi();
@@ -79,10 +97,14 @@ public class ServiceCoordinator {
                 Map<String, Double> rates = response.getConversion_rates();
                 // Retrieve specific rate from Map of exchange rates (if rate is available)
                 if (rates.containsKey(to)) {
+                    // Save the returned exchange rates hash map
                     exchangeRates = rates;
+                    // Retrieve the specified exchange rate
                     exchangeRate = exchangeRates.get(to);
+                    // Indicate the retrieval has been successful
                     successfulRetrieval = true;
-                    retrieveCode = to;
+                    // Indicate which API delivered response - used in retrieving values from saved hash map
+                    source = 0;
                 }
             } else {
                 handleExchangeRateApiError(response);
@@ -100,10 +122,14 @@ public class ServiceCoordinator {
                 Map<String, Double> rates = response.getQuotes();
                 // Retrieve specific rate from Map of exchange rates (if rate is available)
                 if (rates.containsKey(from + to)) {
+                    // Save the returned exchange rates hash map
                     exchangeRates = rates;
+                    // Retrieve the specified exchange rate
                     exchangeRate = exchangeRates.get(from + to);
+                    // Indicate the retrieval has been successful
                     successfulRetrieval = true;
-                    retrieveCode = from + to;
+                    // Indicate which API delivered response - used in retrieving values from saved hash map
+                    source = 1;
                 }
             } else {
                 handleCurrencyLayerApiError(response);
