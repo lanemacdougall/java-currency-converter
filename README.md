@@ -20,7 +20,7 @@ See specific IDE documentation for details. Link for IntelliJ instructions: http
 
 Initialize a CurrencyConverter object using an APIKeyBuilder object and your API access key(s).
 
-'''
+```
 /* Define at least one of the API key constants with your API access key(s).
  * The service will work with access to one API, however, for optimal service 
  * performance, it is recommended that you define both.
@@ -39,4 +39,4 @@ CurrencyConverter converter = new CurrencyConverter(
             .setCurrencyLayerApiKey(CURRENCY_LAYER_API_KEY)
             .build()
 );
-'''
+```
