@@ -61,8 +61,7 @@ Pull requests are welcome. Please see the "Planned Additions/Changes" section fo
 
 
 ## License
-
-Secure Text File Content Retrieval is available under the [MIT license](https://github.com/lanemacdougall/java-currency-converter/blob/master/LICENSE).
+Currency Converter is available under the [MIT license](https://github.com/lanemacdougall/java-currency-converter/blob/master/LICENSE).
 
 
 
