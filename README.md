@@ -57,10 +57,11 @@ converter.convertAmount(baseAmount, BASE_CURRENCY, EXCHANGE_CURRENCY);
 
 ## Contributing
 
-Pull requests are welcome. Please see the "Planned Additions/Changes" section for any features that I plan to add or change in the future.
+I am always looking to improve upon my programs. Pull requests are welcome.
 
 
 ## License
+
 Currency Converter is available under the [MIT license](https://github.com/lanemacdougall/java-currency-converter/blob/master/LICENSE).
 
 
