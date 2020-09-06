@@ -40,3 +40,18 @@ CurrencyConverter converter = new CurrencyConverter(
             .build()
 );
 ```
+
+### Rate Retrieval and Currency Conversion
+
+```java
+// Retrieve the exchange rate between a base currency and conversion currency
+converter.getExchangeRate(BASE_CURRENCY, EXCHANGE_CURRENCY);
+
+// Convert from an amount in a given base currency to the amount in a given conversion currency
+converter.convertAmount(baseAmount, BASE_CURRENCY, EXCHANGE_CURRENCY);
+```
+
+
+
+
+
