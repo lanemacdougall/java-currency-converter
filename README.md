@@ -55,6 +55,14 @@ converter.convertAmount(baseAmount, BASE_CURRENCY, EXCHANGE_CURRENCY);
 ```
 
 
+## Contributing
+
+Pull requests are welcome. Please see the "Planned Additions/Changes" section for any features that I plan to add or change in the future.
+
+
+## License
+
+Secure Text File Content Retrieval is available under the [MIT license](https://github.com/lanemacdougall/java-currency-converter/blob/master/LICENSE).
 
 
 
