@@ -12,7 +12,10 @@ Supports 2 data sources - Exchange Rate API (https://www.exchangerate-api.com/) 
 ## Download
 
 Download Currency Converter.jar and add it to your project's dependencies.
-See specific IDE documentation for details. Link for IntelliJ instructions: https://www.jetbrains.com/help/idea/working-with-module-dependencies.html
+
+See specific IDE documentation for details. 
+
+Link for IntelliJ instructions: https://www.jetbrains.com/help/idea/working-with-module-dependencies.html
 
 ## Use 
 
