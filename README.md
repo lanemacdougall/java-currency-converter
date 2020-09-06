@@ -1,8 +1,10 @@
-### PLEASE NOTE: FULL DESCRIPTION OF LIBRARY AND USAGE IS CURRENTLY BEING WRITTEN - README WILL BE UPDATED SOON
-
 # java-currency-converter
 Real-time currency converter library for Java applications
 
-## Use:
-Download JAR file and add it to your project dependencies. 
-Additional instructions for usage pending.
+Supports 2 data sources - Exchange Rate API (https://www.exchangerate-api.com/) and currencylayer (https://currencylayer.com/)
+
+168 currencies (ISO 4217 three-letter currency codes)
+
+# Documentation
+
+## Download
